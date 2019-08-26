@@ -1,0 +1,137 @@
+.reg-form {
+  &-wrap {
+    width: 100%;
+    max-width: 427px;
+    padding: 25px 40px;
+    border-radius: $brdr-rds;
+    border: solid 1px $light-gray;
+  }
+  &-title {
+    margin-bottom: 25px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 36px;
+    letter-spacing: 0.25px;
+    color: $black;
+    text-align: center;
+  }
+  &-input-wrap {
+    margin-bottom: 30px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  &-input {
+    width: 100%;
+    height: 24px;
+    margin-top: 5px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: $black;
+    border: none;
+    outline: none;
+    &-label {
+      height: 50px;
+      padding-bottom: 4px; 
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-bottom: 1px solid $light-gray;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 12px;
+      color: transparent;
+      outline: none;
+      &:focus-within {
+        color: $gray;
+        transition: .3s ease-in;
+        border-bottom: 1px solid $black;
+      }
+    }
+    &::placeholder {
+      color: $gray;
+    }
+    &:focus::placeholder {
+      color: transparent;
+    }
+  }
+  &-select-container {
+    outline: none;
+  }
+  &-select__control {
+    min-height: 24px;
+    border: none;
+    outline: none;
+    box-shadow: none;
+    background-color: transparent;
+  }
+  &-select__value-container {
+    height: 24px;
+    padding: 0;
+    margin-top: 5px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: $black;
+    border: none;
+    outline: none;
+  }
+  &-select__indicator-separator {
+    display: none;
+  }
+  &-error {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 2;
+    color: $red;
+  }
+  &-ch-box-label {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    color: $gray;
+  }
+  &-btn {
+    width: 100%;
+    padding: 12px 24px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0.47px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #fff;
+    background: $green;
+    border: none;
+    border-radius: $brdr-rds;
+    outline: none;
+    cursor: pointer;
+    &:hover {
+      background: $green-hover;
+      transition: .3s ease-in;
+    }
+    &:active {
+      background: $green-active;
+      transition: .3s ease-in;
+    }
+  }
+  &-desc {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13.8px;
+    font-weight: normal;
+    letter-spacing: 0.2px;
+    text-align: center;
+    color: $gray;
+  }
+  &-link {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 13.8px;
+    font-weight: normal;
+    color: $blue;
+    text-decoration: none;
+    cursor: pointer;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

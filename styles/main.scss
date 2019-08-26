@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,700&display=swap');
+@import 'normalize';
+@import 'reset';
+@import 'variables';
+@import 'reg-form';
+@import 'success-pop-up';
+@import 'loader';
+
+.app {
+  display: flex;
+  justify-content: center;
+  &-inner {
+      padding: 110px 0;
+  }
+}

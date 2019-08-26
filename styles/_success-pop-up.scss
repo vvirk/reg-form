@@ -1,0 +1,50 @@
+.success-pop-up {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 100%;
+    max-width: 381px;
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: $brdr-rds;
+    border: $pop-up-border;
+    background-color: $pop-up-bg;
+    z-index: 999;
+    &-content {
+      display: flex;
+    }
+    &-icon {
+      width: 13px;
+      height: 13px;
+      margin-right: 10px;
+      color: #fff;
+      background: $pop-up-green;
+      border-radius: 50%;
+    }
+    &-title, &-desc {
+      margin-bottom: 7px;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 14px;
+      font-weight: bold;
+      color: $pop-up-green;
+    }
+    &-desc {
+      margin-bottom: 0;
+      font-weight: normal;
+    }
+    &-btn {
+      color: $pop-up-green;
+      font-weight: bold;
+      font-size: 20px;
+      line-height: .5;
+      outline: none;
+      border: none;
+      background: none;
+      cursor: pointer;
+      &:hover {
+        transform: scale(1.4);
+        transition: .3s ease-in;
+      }
+    }
+}
