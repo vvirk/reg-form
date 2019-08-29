@@ -3,10 +3,10 @@ import { Form, Field } from 'react-final-form'
 import Select from 'react-select';
 import Loader from '../Loader/Loader';
 
-const ReactSelect = ({ input, meta, ...rest }) => (
+const ReactCountrySelect = ({ input, meta, ...rest }) => (
   <div className="reg-form-input-wrap">
     <label className="reg-form-input-label">
-      Code
+      Country
       <Select 
         className="reg-form-select-container"
         classNamePrefix="reg-form-select"
@@ -17,12 +17,21 @@ const ReactSelect = ({ input, meta, ...rest }) => (
     {meta.error && meta.touched && <span className="reg-form-error">{meta.error}</span>}
   </div>
 )
-const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+const ReactCodeSelect = ({ input, meta, ...rest }) => (
+  <div className="reg-form-input-wrap">
+    <label className="reg-form-input-label">
+      Code
+      <Select 
+        className="reg-form-select-code-container"
+        classNamePrefix="reg-form-select-code"
+        {...input}
+        {...rest} 
+      />
+    </label>
+    {meta.error && meta.touched && <span className="reg-form-error">{meta.error}</span>}
+  </div>
+)
 
-const onSubmit = async values => {
-  await sleep(3000)
-  window.alert(JSON.stringify(values, 0, 2));
-}
 export const RegistrationForm = (props) => {
   const required = value => (value ? undefined : 'Required');
   const mustBeNumber = value => (isNaN(value) ? 'Must be a number' : undefined);
@@ -32,10 +41,24 @@ export const RegistrationForm = (props) => {
   const dialCodes = [];
   if(props.countries) {
     props.countries.map((country) =>{(
-      countries.push({value: country.name, label: country.name}),
+      countries.push({value: country.country_code, label: country.name}),
       dialCodes.push({value: `+${country.dial_code}`, label: `+${country.dial_code} ${country.name}`})
     )})
   }
+  const onSubmit = values => {
+    const formData = {
+      name: values.name,
+      dialCode: values.dialCode.value,
+      phoneNumber: values.phoneNumber,
+      email: values.email,
+      country: "UK",
+      password: values.password,
+      passwordConfirmation: values.confirm,
+      newsletterSubscr: (values.newsletterSubscr) ? true : false,
+    }
+  props.toggleIsFetching(true);
+  props.registerUser(formData);
+}
   return (
     <div className="reg-form-wrap">
       <Form
@@ -47,9 +70,9 @@ export const RegistrationForm = (props) => {
           }
           return errors
         }}
-        render={({ handleSubmit, submitting}) => (
+        render={({ handleSubmit, submitting, reset, pristine}) => (
           <form 
-            onSubmit={handleSubmit}
+          onSubmit={handleSubmit}
             className="reg-form"
           >
             <h1 className="reg-form-title">
@@ -67,40 +90,44 @@ export const RegistrationForm = (props) => {
                       {...input} 
                       type="text" 
                       placeholder="Name" 
-                      className="reg-form-input" 
+                      className="reg-form-input"
+                      maxLength="30"
+                      minLength="3" 
                     />
                   </label>
                   {meta.error && meta.touched && <span className="reg-form-error">{meta.error}</span>}
                 </div>
               )}
             </Field>
-            <Field 
-              name="dialCode"
-              validate={required} 
-              component={ReactSelect}
-              options={dialCodes} 
-              placeholder="Code"
-              validate={required}
-            />
-            <Field 
-              name="phoneNumber"
-              className="reg-form-input"
-              validate={composeValidators(required, mustBeNumber)}>
-              {({ input, meta }) => (
-                <div className="reg-form-input-wrap">
-                  <label className="reg-form-input-label">
-                    Number
-                    <input
-                      {...input}
-                      type="text"
-                      placeholder="Number"
-                      className="reg-form-input"
-                    />
-                  </label>
-                  {meta.error && meta.touched && <span className="reg-form-error">{meta.error}</span>}
-                </div>
-              )}
-            </Field> 
+            <div className="reg-form-number-wrap">
+              <Field 
+                name="dialCode"
+                validate={required} 
+                component={ReactCodeSelect}
+                options={dialCodes} 
+                placeholder="Code"
+                validate={required}
+              />
+              <Field 
+                name="phoneNumber"
+                className="reg-form-input"
+                validate={composeValidators(required, mustBeNumber)}>
+                {({ input, meta }) => (
+                  <div className="reg-form-input-wrap">
+                    <label className="reg-form-input-label">
+                      Number
+                      <input
+                        {...input}
+                        type="text"
+                        placeholder="Number"
+                        className="reg-form-input"
+                      />
+                    </label>
+                    {meta.error && meta.touched && <span className="reg-form-error">{meta.error}</span>}
+                  </div>
+                )}
+              </Field> 
+            </div>
             <Field
               name="email"
               validate={required}
@@ -122,7 +149,7 @@ export const RegistrationForm = (props) => {
             </Field>
             <Field 
               name="country" 
-              component={ReactSelect}
+              component={ReactCountrySelect}
               options={countries} 
               placeholder="Select country"
               validate={required}
@@ -140,6 +167,8 @@ export const RegistrationForm = (props) => {
                       type="password" 
                       placeholder="Password"
                       className="reg-form-input"  
+                      maxLength="128"
+                      minLength="5"
                     />
                   </label>
                   {meta.error && meta.touched && <span className="reg-form-error">{meta.error}</span>}
@@ -159,6 +188,8 @@ export const RegistrationForm = (props) => {
                       type="password"
                       placeholder="Password сonfirmation"
                       className="reg-form-input"
+                      maxLength="128"
+                      minLength="5"
                     />
                   </label>
                 {meta.error && meta.touched && <span className="reg-form-error">{meta.error}</span>}
@@ -182,7 +213,7 @@ export const RegistrationForm = (props) => {
               <button
                 type="submit"
                 className="reg-form-btn"
-                disabled={submitting}
+                disabled={submitting || pristine}
               >
                 {(props.isFetching) ? <Loader /> : "create an account"}
               </button>

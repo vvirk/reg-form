@@ -1,5 +1,8 @@
 import { connect } from 'react-redux';
-import { toggleIsFetching } from '../actions/index';
+import { 
+  toggleIsFetching,
+  registerUser,
+} from '../actions/index';
 import RegistrationForm from '../components/RegistrationForm/RegistrationForm';
 
 const mapStateToProps = state => ({
@@ -8,6 +11,7 @@ const mapStateToProps = state => ({
 });
 const mapDispatchToProps = {
   toggleIsFetching,
+  registerUser,
 };
 
 export const RegistrationFormContainer = connect(
